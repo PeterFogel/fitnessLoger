@@ -35,14 +35,14 @@ Encore
     .enableVersioning(Encore.isProduction())
 
     // enables Sass/SCSS support
-    //.enableSassLoader(function (sassOptions) {}, {resolveUrlLoader: false})
+    .enableSassLoader(function (sassOptions) {}, {resolveUrlLoader: false})
     // .enablePostCssLoader((options) => {options.config = { path: 'postcss.config.js'}; })
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
 
     // uncomment if you're having problems with a jQuery plugin
-    // .autoProvidejQuery()
+    .autoProvidejQuery()
 ;
 
 module.exports = Encore.getWebpackConfig();
