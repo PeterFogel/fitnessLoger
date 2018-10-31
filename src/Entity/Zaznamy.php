@@ -5,7 +5,8 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ZaznamyRepository")
+ * @ORM\Entity()
+ * @ORM\Table(name="zaznamy")
  */
 class Zaznamy
 {
@@ -63,26 +64,42 @@ class Zaznamy
         return $this->id;
     }
 
-    public function getDatum(){
+    /**
+     * @return \DateTime
+     */
+    public function getDatum(): ?\DateTime
+    {
         return $this->datum;
     }
-    public function setDatum($datum){
-        return $this->$datum;
+
+    public function setDatum()
+    {
+        // WILL be saved in the database
+        $this->datum = new \DateTime("now");
     }
 
-    public function getPartia(){
+    /**
+     * Get repartiaf
+     *
+     * @return string
+     */
+    public function getPartia(): string {
         return $this->partia;
     }
-    public function setPartia($partia){
-        return $this->$partia;
+
+    public function setPartia(string $partia): self {
+        // return $this->$partia;
+        $this->partia = $partia;
+        return $this;
     }   
 
 
     public function getCvik(){
         return $this->cvik;
     }
-    public function setCvik($cvik){
-        return $this->$cvik;
+    public function setCvik(string $cvik): self {
+        $this->cvik = $cvik;
+        return $this;
     } 
 
 
@@ -90,7 +107,8 @@ class Zaznamy
         return $this->vaha;
     }
     public function setVaha($vaha){
-        return $this->$vaha;
+        $this->vaha = $vaha;
+        return $this;
     } 
 
 
@@ -98,7 +116,8 @@ class Zaznamy
         return $this->prvaSeria;
     }
     public function setPrvaSeria($prvaSeria){
-        return $this->$prvaSeria;
+        $this->prvaSeria = $prvaSeria;
+        return $this;
     } 
 
 
@@ -106,7 +125,8 @@ class Zaznamy
         return $this->ciel;
     }
     public function setCiel($ciel){
-        return $this->$ciel;
+        $this->ciel = $ciel;
+        return $this;
     } 
 
 
@@ -114,7 +134,8 @@ class Zaznamy
         return $this->realizovane;
     }
     public function setRealizovane($realizovane){
-        return $this->$realizovane;
+        $this->realizovane = $realizovane;
+        return $this;
     } 
 
 
@@ -122,6 +143,7 @@ class Zaznamy
         return $this->poznamky;
     }
     public function setPoznamky($poznamky){
-        return $this->$poznamky;
+        $this->poznamky = $poznamky;
+        return $this;
     } 
 }

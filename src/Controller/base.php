@@ -3,7 +3,9 @@
 // src/Controller/base.php
 namespace App\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use App\Entity\Zaznamy;
+
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -11,24 +13,49 @@ use Symfony\Component\HttpFoundation\Response;
 class base extends AbstractController
 {
     /**
-     * @route("/")
+     * @route("/", name="homePage")
+     * 
      */
     public function homepage()
     {
-        return new Response("Hlavna stranka");
+        $zaznam = $this->getDoctrine()->getRepository(Zaznamy::class)->findAll();
+        
+        return $this->render("base.html.twig",["data" => $zaznam,]);
     }
 
     /**
-     * @route("/table")
+     * @route("/zaznam/new", name="form")
+     * 
      */
-    public function showTable()
+    public function addForm()
     {
-        $premenna = [1, 8, 4, 6, 2, 8, 16, 3, 15];
-        
+        return new Response("Formular");
+    }
+    
 
-        return $this->render("base.html.twig",[
-            "data" => $premenna,
-        ]);
+    /**
+     * @route("/save")
+     */
+    public function saveValues()
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $zaznam = new Zaznamy();
+        $zaznam->setDatum();
+        $zaznam->setPartia("Nohy");
+        $zaznam->setCvik("Drep");
+        $zaznam->setVaha("65");
+        $zaznam->setPrvaSeria("12");
+        $zaznam->setCiel("50");
+        $zaznam->setRealizovane("50");
+        $zaznam->setPoznamky("Poznamka");
+        
+        $entityManager->persist($zaznam);
+        $entityManager->flush();
+
+        // return new response ("Zaznam uspesne ulozeny do databazy". $zaznam->getId());
+        return $this->redirectToRoute('homePage');
+
     }
     
 }
