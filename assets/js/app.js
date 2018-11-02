@@ -14,3 +14,11 @@ require('../css/app.scss');
 // var $ = require('jquery');
 
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+
+$('tr').dblclick(function(){
+    var id = $(this).attr('id');
+    var value = $(this).text();
+    // alert("Hello! I am an alert box!!" + id + " " + value);
+
+    $(location).attr('href',"/zaznam/show/" + id);
+})

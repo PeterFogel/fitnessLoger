@@ -4,10 +4,15 @@
 namespace App\Controller;
 
 use App\Entity\Zaznamy;
+use App\Form\formular;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 
 class base extends AbstractController
@@ -18,20 +23,25 @@ class base extends AbstractController
      */
     public function homepage()
     {
-        $zaznam = $this->getDoctrine()->getRepository(Zaznamy::class)->findAll();
+        $zaznamy = $this->getDoctrine()->getRepository(Zaznamy::class)->findAll();
         
-        return $this->render("base.html.twig",["data" => $zaznam,]);
+        return $this->render("base.html.twig",["data" => $zaznamy,]);
     }
 
+
+    
     /**
-     * @route("/zaznam/new", name="form")
+     * @route("/zaznam/show/{id}", name="zaznamShow")
      * 
      */
-    public function addForm()
+    public function zaznamShow($id)
     {
-        return new Response("Formular");
+        $zaznam = $this-> getDoctrine() -> getRepository(Zaznamy::class)->find($id);
+
+        return $this->render("sites/inc/form.html.twig",["data" => $zaznam]);
     }
-    
+
+
 
     /**
      * @route("/save")
@@ -57,7 +67,20 @@ class base extends AbstractController
         return $this->redirectToRoute('homePage');
 
     }
-    
+
+     /**
+     * @route("/zaznam/new", name="newEntry")
+     * Method({"GET", "POST"})
+     */
+    public function addForm(EntityManagerInterface $em)
+    {
+        $form = $this->createForm(formular::class);
+
+        return $this->render('sites/inc/form.html.twig', [
+            'articleForm' => $form->createView()
+        ]);
+    }
+
 }
 
 

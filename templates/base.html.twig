@@ -13,11 +13,9 @@
  </head>
 
     <body>
+        {% include 'sites/inc/navbar.html.twig' %}
         {% block body %}
-            {% include 'sites/inc/navbar.html.twig' %}
             {% include 'sites/inc/table.html.twig' %}
-
-        
         {% endblock %}
 
         {% block javascripts %}

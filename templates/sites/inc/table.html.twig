@@ -14,10 +14,10 @@ tabulka:
             <th>realizovane</th>
             <th>poznaky</th>
         </tr>
-    </thead>
+    </thead> 
     <tbody>
         {% for item in data %}
-            <tr data-id="{{ item.id }}">
+            <tr id="{{ item.id }}">
 
                 <td>{{ item.id}}</td>
                 <td>{{ item.datum|date('d-m-Y')}}</td>
@@ -34,22 +34,3 @@ tabulka:
     </tbody>
 </table>
 
-
-
-
-{# {{ dump(data) }}
-
-{% set temp = data|first %}
-
-<tr>sad
-    {% for property_title in temp|keys %} 
-        <td>{{ property_title }}</td>
-    {% endfor %}
-</tr>
-{% for item in data %}
-    <tr>
-        {% for field in temp|keys %}
-            <td>{{ attribute(item, field) }}</td>
-        {% endfor %}
-    </tr>
-{% endfor %} #}
